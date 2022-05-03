@@ -1,5 +1,5 @@
 # local-package-publisher-xos
-This is simply a cross-plaform fork of [![npm Package](https://img.shields.io/npm/v/local-package-publisher.svg)](https://www.npmjs.com/package/local-package-publisher).  It was forked off of `v1.0.4`.
+This is simply a cross-plaform fork of [local-package-publisher](https://www.npmjs.com/package/local-package-publisher).  It was forked off of `v1.0.4`.
 
 ## Differences 
 
