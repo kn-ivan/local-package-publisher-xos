@@ -1,17 +1,17 @@
 {
   "name": "local-package-publisher-xos",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A utility app for publishing your npm packages locally for testing",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
   "bin": {
-    "local-package-publisher": "./index.js"
+    "local-package-publisher-xos": "./index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/debashish2014/local-package-publisher.git"
+    "url": "git+https://github.com/kn-ivan/local-package-publisher-xos.git"
   },
   "keywords": [
     "local",
@@ -28,9 +28,9 @@
     "package-lock.json"
   ],
   "bugs": {
-    "url": "https://github.com/debashish2014/local-package-publisher/issues"
+    "url": "https://github.com/kn-ivan/local-package-publisher-xos/issues"
   },
-  "homepage": "https://github.com/debashish2014/local-package-publisher#readme",
+  "homepage": "https://github.com/kn-ivan/local-package-publisher-xos#readme",
   "dependencies": {
     "chalk": "^2.4.2",
     "commander": "^2.19.0",
