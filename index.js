@@ -45,15 +45,15 @@ const packageManager = 'yarn';
  */
 function xosPath(paths){
     return path.normalize(
-        path.join(paths)
+        path.join(...paths)
     );
 }
 
 const dirNameLocalPack = '.local-pack';
 const configFile = 'settings.json';
 const archiveName = 'tgz';
-const logFileName = 'local-package-publisher.log';
-let file = xosPath([dirNameLocalPack,configFile]);
+const logFileName = 'local-package-publisher-xos.log';
+let file = xosPath(dirNameLocalPack,configFile);
 let projectName;
 let packageName;
 let projectNameInPackageJson;
@@ -72,7 +72,7 @@ function isNodeProject() {
                 }
                
                 projectNameInPackageJson = obj.name;
-                packageName = `${projectName}-${obj.version}.${archiveName}`;
+                packageName = `${projectName}-v${obj.version}.${archiveName}`;
                 resolve(packageName);
             })
             .catch(err => {
@@ -339,13 +339,14 @@ function publish() {
         })
         .then((packageDir) => {
             linkDirGlobal(packageDir);
+            console.log(chalk.yellow('Package Directory: '+packageDir));
         })
         .then(() => {
             console.log(chalk.yellow(`${projectNameInPackageJson}`) + chalk.green(` package published successfully to global`));
-            console.log('To consume this package, run ' + chalk.yellow(`npm link ${projectNameInPackageJson}`) + ' in target project');
+            console.log('To consume this package, run ' + chalk.yellow(`${packageManager} link ${projectNameInPackageJson}`) + ' in target project');
         })
         .catch(err => {
-            fs.writeFile(xosPath([process.cwd(),logFileName]), err);
+            fs.writeFile(`${process.cwd()}/${logFileName}`, err);
             console.log(chalk.red('Failed to publish package to global'));
         });
 }
@@ -382,7 +383,7 @@ function unpublish() {
 }
 
 //Parse the arguments
-const packageJson = require(path.join(['./package.json']));
+const packageJson = require('./package.json');
 
 const program = new commander.Command(packageJson.name)
     .version(packageJson.version, '-v, --version')
