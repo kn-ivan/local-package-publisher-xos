@@ -31,6 +31,9 @@ const read = require('fs').createReadStream;
 const unpack = require('tar-pack').unpack;
 const chalk = require('chalk');
 const commander = require('commander');
+const path = require('path');
+
+// package manager.  Change to npm to use npm.
 const packageManager = 'yarn';
 
 /**
@@ -41,7 +44,9 @@ const packageManager = 'yarn';
  * @returns {string} Cross-browser path
  */
 function xosPath(paths){
-    return path.normalize(path.join(paths));
+    return path.normalize(
+        path.join(paths)
+    );
 }
 
 const dirNameLocalPack = '.local-pack';
