@@ -53,7 +53,7 @@ const dirNameLocalPack = '.local-pack';
 const configFile = 'settings.json';
 const archiveName = 'tgz';
 const logFileName = 'local-package-publisher-xos.log';
-let file = xosPath(dirNameLocalPack,configFile);
+let file = xosPath([dirNameLocalPack,configFile]);
 let projectName;
 let packageName;
 let projectNameInPackageJson;
@@ -120,9 +120,11 @@ function movePackageToTempDir(packagePath, destinationPath) {
 function unpackPackage(packageFilePath, unpackDir) {
     return new Promise((resolve, reject) => {
         read(packageFilePath)
-            .pipe(unpack(unpackDir, function (err) {
-                if (err) reject(err.stack);
-                else {
+            .pipe(unpack(unpackDir, {keepFiles: true}, function (err) {
+                if (err) {
+                    reject(err.stack);
+                    throw err;
+                } else {
                     fs.remove(packageFilePath)
                         .then(() => {
                             fs.remove(xosPath([unpackDir, dirNameLocalPack]))
@@ -347,7 +349,8 @@ function publish() {
         })
         .catch(err => {
             fs.writeFile(`${process.cwd()}/${logFileName}`, err);
-            console.log(chalk.red('Failed to publish package to global'));
+            console.error(chalk.red('Failed to publish package to global'));
+            console.error(chalk.red(err));
         });
 }
 
